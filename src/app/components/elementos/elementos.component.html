@@ -1,0 +1,70 @@
+<div class="jumbotron jumbotron-fluid col-xl-10 offset-xl-2">
+    <div class="container text-center">
+      <h1 class="display-4">Gestion de elementos</h1>
+      <p class="lead">Aqui podrá guardar,editar y eliminar elementos.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-6 offset-xl-3 col-lg-6 offset-lg-4 col-md-8 offset-md-3 pt-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="card-header bg-primary mb-2">
+                        <h1 class="text-center text-white text-capitalize"> Nuevo Elemento</h1>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupType">Tipo de bien</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupType">
+                            <option> Bien de uso</option>
+                            <option> Bien de consumo</option>
+                            <option> Transferencia en especie </option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupCategory">Categoria</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupCategory">
+                            <option> Indumentaria</option>
+                            <option> Materiales deportivos</option>
+                            <option> Libreria</option>
+                            <option> Alimentacion e hidrat.</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend d-inline-block">
+                            <label class="input-group-text" for="inputName">Nombre</label>
+                        </div>
+                        <input class="text-uppercase" type="text" id="inputName" placeholder="Ingresar nombre del elemento"
+                        class="d-inline-block form-control">
+
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Descripcion</span>
+                        </div>
+                        <textarea class="form-control" aria-label="With textarea" placeholder="Agregue aqui detalles del problema">
+
+                        </textarea>
+                      </div>
+            
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend d-inline-block">
+                            <label class="input-group-text" for="inputExpediente">Cantidad</label>
+                        </div>
+                        <input type="number" id="inputExpediente" placeholder="Ingresar cantidad disponible"
+                            class="d-inline-block form-control">
+                    </div>
+
+                    <button class="btn btn-outline-success btn-block text-uppercase" (click)="saveNewIncidencia()">
+                        Guardar 
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
