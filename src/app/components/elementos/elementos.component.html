@@ -1,7 +1,7 @@
 <div class="jumbotron jumbotron-fluid col-xl-10 offset-xl-2">
     <div class="container text-center">
-      <h1 class="display-4">Gestion de elementos</h1>
-      <p class="lead">Aqui podrá guardar,editar y eliminar elementos.</p>
+        <h1 class="display-4">Gestion de elementos</h1>
+        <p class="lead">Aqui podrá guardar,editar y eliminar elementos.</p>
     </div>
 </div>
 
@@ -9,7 +9,7 @@
     <div class="col-xl-6 offset-xl-3 col-lg-6 offset-lg-4 col-md-8 offset-md-3 pt-3">
         <div class="card">
             <div class="card-body">
-                <div class="form-group">
+                <div class="form-group" [formGroup]="elementForm">
                     <div class="card-header bg-primary mb-2">
                         <h1 class="text-center text-white text-capitalize"> Nuevo Elemento</h1>
                     </div>
@@ -17,51 +17,103 @@
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="inputGroupType">Tipo de bien</label>
                         </div>
-                        <select class="custom-select" id="inputGroupType">
-                            <option> Bien de uso</option>
-                            <option> Bien de consumo</option>
-                            <option> Transferencia en especie </option>
+                        <select class="custom-select" formControlName="TypeBenefit" id="inputGroupType"
+                            [(ngModel)]="id_benef" (change)="setCategorysList()">
+                            <option *ngFor="let benefits of benefitsList" [value]="benefits.id_type_benefit_of_use">
+                                {{benefits.name_benefit}}</option>
                         </select>
+                    </div>
+                    <!--Mensaje de error para el select id="inputGroupType"-->
+                    <div *ngIf="TypeBenefit.invalid && (TypeBenefit.dirty || TypeBenefit.touched)"
+                        class="alert alert-danger">
+
+                        <div *ngIf="TypeBenefit.errors.required">
+                            El tipo de bien es requerido.
+                        </div>
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="inputGroupCategory">Categoria</label>
                         </div>
-                        <select class="custom-select" id="inputGroupCategory">
-                            <option> Indumentaria</option>
-                            <option> Materiales deportivos</option>
-                            <option> Libreria</option>
-                            <option> Alimentacion e hidrat.</option>
+                        <select class="custom-select" formControlName="Category" id="inputGroupCategory"
+                            [disabled]="!enabledSelectCategory">
+                            <option *ngFor="let category of categorysList" [value]="category.id_category">
+                                {{category.name_category}}</option>
                         </select>
+                    </div>
+                    <!--Mensaje de error para el select id="inputGroupCategory"-->
+                    <div *ngIf="Category.invalid && (Category.dirty || Category.touched)" class="alert alert-danger">
+
+                        <div *ngIf="Category.errors.required">
+                            La categoria del elemento es requerida.
+                        </div>
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend d-inline-block">
                             <label class="input-group-text" for="inputName">Nombre</label>
                         </div>
-                        <input class="text-uppercase" type="text" id="inputName" placeholder="Ingresar nombre del elemento"
-                        class="d-inline-block form-control">
+                        <input class="text-uppercase" type="text" id="inputName" formControlName="nameElement"
+                            placeholder="Ingresar nombre del elemento" class="d-inline-block form-control">
 
                     </div>
+
+                    <!--Mensaje de error para el input id="inputName"-->
+                    <div *ngIf="nameElement.invalid && (nameElement.dirty || nameElement.touched)"
+                        class="alert alert-danger">
+
+                        <div *ngIf="nameElement.errors.required">
+                            Debes indicar un nombre para el elemento.
+                        </div>
+                        <div *ngIf="nameElement.errors.minlength">
+                            El nombre debe contener al menos 4 letras
+                        </div>
+
+                    </div>
+
+
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                          <span class="input-group-text">Descripcion</span>
+                            <span class="input-group-text">Descripcion</span>
                         </div>
-                        <textarea class="form-control" aria-label="With textarea" placeholder="Agregue aqui detalles del problema">
+                        <textarea formControlName="descriptionElement" class="form-control" aria-label="With textarea"
+                            placeholder="Agregue aqui detalles del problema">
 
                         </textarea>
-                      </div>
-            
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend d-inline-block">
-                            <label class="input-group-text" for="inputExpediente">Cantidad</label>
+                    </div>
+                    <!--Mensaje de error para el textarea formControlName="descriptionElement"-->
+                    <div *ngIf="descriptionElement.invalid && (descriptionElement.dirty || descriptionElement.touched)"
+                        class="alert alert-danger">
+
+                        <div *ngIf="descriptionElement.errors.required">
+                            Debes ingresar una descripcion para el elemento
                         </div>
-                        <input type="number" id="inputExpediente" placeholder="Ingresar cantidad disponible"
-                            class="d-inline-block form-control">
+                        <div *ngIf="descriptionElement.errors.minlength">
+                            La descripcion debe contener al menos 8 letras
+                        </div>
+
                     </div>
 
-                    <button class="btn btn-outline-success btn-block text-uppercase" (click)="saveNewIncidencia()">
-                        Guardar 
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend d-inline-block">
+                            <label class="input-group-text" for="quantityElement">Cantidad</label>
+                        </div>
+                        <input type="number" formControlName="quantityElement" id="quantityElement"
+                            placeholder="Ingresar cantidad disponible" class="d-inline-block form-control" min="1" pattern="^[0-9]+">
+                    </div>
+                    <!--Mensaje de error para el input id="inputName"-->
+                    <div *ngIf="quantityElement.invalid && (quantityElement.dirty || quantityElement.touched)"
+                        class="alert alert-danger">
+
+                        <div *ngIf="quantityElement.errors.required">
+                            Debes ingresar la cantidad de elementos disponibles
+                        </div>
+                    </div>
+
+
+                    <button class="btn btn-outline-success btn-block text-uppercase" [disabled]="!elementForm.valid"(click)="saveNewElement()">
+                        Guardar
                     </button>
                 </div>
             </div>
