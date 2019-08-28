@@ -1,0 +1,7 @@
+{
+    "/server-patrimonio/*":{
+        "target":"http://localhost",
+        "secure":false,
+        "changeOrigin":true
+    }
+}

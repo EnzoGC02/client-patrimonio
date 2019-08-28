@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 //services
 import {BenefitsService} from '../../services/benefits/benefits.service'
 import {CategorysService} from '../../services/categorys/categorys.service'
+import {ElementsService} from '../../services/elements/elements.service'
 
 //modelos
 import {Benefits} from '../../models/benefits'
@@ -23,16 +24,18 @@ export class ElementosComponent implements OnInit {
   categorysList:Categorys[]=[];
 
   elementForm:FormGroup;
-  element:Elements=new Elements()
+  element:Elements=new Elements();
   id_benef:number
   enabledSelectCategory:boolean=false;
 
 
   constructor(
     private benefitsService:BenefitsService,
-    private categorysService:CategorysService
+    private categorysService:CategorysService,
+    private elementsService:ElementsService
   ) {
       this.elementForm=this.createFormGroupElements();
+      console.log(this.element);
     }
 
   ngOnInit() {
@@ -52,7 +55,7 @@ export class ElementosComponent implements OnInit {
     });
   }
 
-   get TypeBenefit(){
+  get TypeBenefit(){
     return this.elementForm.get('TypeBenefit');
   }
   get Category(){
@@ -100,7 +103,17 @@ export class ElementosComponent implements OnInit {
   }
 
   saveNewElement(){
-    //elimina del objeto la propiedad de benefit
-    delete this.elementForm.value.TypeBenefit
+    console.log(this.element);
+    this.elementsService.saveElement(this.element)
+    .subscribe(
+      data=>{ //success
+        console.log(data);
+      },
+      err => console.error('Observer got an error: ' + err),
+      () => { // end request
+        console.log('Observer got a complete notification')
+      }
+
+    )
   }
 }

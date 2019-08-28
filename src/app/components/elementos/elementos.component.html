@@ -19,8 +19,8 @@
                         </div>
                         <select class="custom-select" formControlName="TypeBenefit" id="inputGroupType"
                             [(ngModel)]="id_benef" (change)="setCategorysList()">
-                            <option *ngFor="let benefits of benefitsList" [value]="benefits.id_type_benefit_of_use">
-                                {{benefits.name_benefit}}</option>
+                            <option *ngFor="let benefit of benefitsList" [value]="benefit.id_type_benefit_of_use">
+                                {{benefit.name_benefit}}</option>
                         </select>
                     </div>
                     <!--Mensaje de error para el select id="inputGroupType"-->
@@ -37,7 +37,7 @@
                             <label class="input-group-text" for="inputGroupCategory">Categoria</label>
                         </div>
                         <select class="custom-select" formControlName="Category" id="inputGroupCategory"
-                            [disabled]="!enabledSelectCategory">
+                            [disabled]="!enabledSelectCategory" [(ngModel)]="element.category_id">
                             <option *ngFor="let category of categorysList" [value]="category.id_category">
                                 {{category.name_category}}</option>
                         </select>
@@ -54,7 +54,7 @@
                             <label class="input-group-text" for="inputName">Nombre</label>
                         </div>
                         <input class="text-uppercase" type="text" id="inputName" formControlName="nameElement"
-                            placeholder="Ingresar nombre del elemento" class="d-inline-block form-control">
+                            placeholder="Ingresar nombre del elemento" class="d-inline-block form-control" [(ngModel)]="element.name_element">
 
                     </div>
 
@@ -77,7 +77,7 @@
                             <span class="input-group-text">Descripcion</span>
                         </div>
                         <textarea formControlName="descriptionElement" class="form-control" aria-label="With textarea"
-                            placeholder="Agregue aqui detalles del problema">
+                            placeholder="Agregue aqui detalles del problema" [(ngModel)]="element.description">
 
                         </textarea>
                     </div>
@@ -100,7 +100,7 @@
                             <label class="input-group-text" for="quantityElement">Cantidad</label>
                         </div>
                         <input type="number" formControlName="quantityElement" id="quantityElement"
-                            placeholder="Ingresar cantidad disponible" class="d-inline-block form-control" min="1" pattern="^[0-9]+">
+                            placeholder="Ingresar cantidad disponible" class="d-inline-block form-control" min="1" pattern="^[0-9]+" [(ngModel)]="element.quantity">
                     </div>
                     <!--Mensaje de error para el input id="inputName"-->
                     <div *ngIf="quantityElement.invalid && (quantityElement.dirty || quantityElement.touched)"
