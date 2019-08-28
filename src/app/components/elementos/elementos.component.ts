@@ -103,7 +103,7 @@ export class ElementosComponent implements OnInit {
   }
 
   saveNewElement(){
-    console.log(this.element);
+    delete this.element.id_element
     this.elementsService.saveElement(this.element)
     .subscribe(
       data=>{ //success

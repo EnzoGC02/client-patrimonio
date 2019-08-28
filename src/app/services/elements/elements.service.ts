@@ -13,5 +13,9 @@ export class ElementsService {
   saveElement(element){
     return this.http.post(`${AppSettings.API_URL}/Elements/add.json`,element);
   }
+
+  getElements(){
+    return this.http.get(`${AppSettings.API_URL}/Elements/index.json`);
+  }
 }
   

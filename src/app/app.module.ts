@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ElementosComponent } from './components/elementos/elementos.component';
+import { ElementosListComponent } from './components/elementos/elementos-list/elementos-list.component';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { ElementosComponent } from './components/elementos/elementos.component';
     AppComponent,
     NavbarComponent,
     ElementosComponent,
+    ElementosListComponent,
   ],
   imports: [
     BrowserModule,
