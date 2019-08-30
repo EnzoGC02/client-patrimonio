@@ -4,4 +4,8 @@ export class Elements{
     name_element:string 
     description:string
     quantity:number
+
+    constructor(id:number){
+        this.id_element=id;
+    }
 }

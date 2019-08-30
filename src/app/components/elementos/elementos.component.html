@@ -1,17 +1,11 @@
-<div class="jumbotron jumbotron-fluid col-xl-10 offset-xl-2">
-    <div class="container text-center">
-        <h1 class="display-4">Gestion de elementos</h1>
-        <p class="lead">Aqui podrá guardar,editar y eliminar elementos.</p>
-    </div>
-</div>
 
 <div class="row">
     <div class="col-xl-6 offset-xl-3 col-lg-6 offset-lg-4 col-md-8 offset-md-3 pt-3">
         <div class="card">
             <div class="card-body">
                 <div class="form-group" [formGroup]="elementForm">
-                    <div class="card-header bg-primary mb-2">
-                        <h1 class="text-center text-white text-capitalize"> Nuevo Elemento</h1>
+                    <div class="card-header bg-ligth mb-2">
+                        <h1 class="text-center text-dark text-capitalize"> Nuevo Elemento</h1>
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -119,12 +113,4 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="row">
-        <app-elementos-list>
-            <div *ngFor="let element of ElementsList">
-                
-            </div>
-        </app-elementos-list>
 </div>

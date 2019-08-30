@@ -21,10 +21,11 @@ export class ElementosComponent implements OnInit {
 
   /*****VARIABLES LOCALES*****/
   benefitsList:Benefits[]=[];
+  ElementsList:Elements[];
   categorysList:Categorys[]=[];
 
   elementForm:FormGroup;
-  element:Elements=new Elements();
+  element:Elements=new Elements(0);
   id_benef:number
   enabledSelectCategory:boolean=false;
 
@@ -89,6 +90,7 @@ export class ElementosComponent implements OnInit {
     this.categorysService.getCategoryForBenefyt(this.id_benef)
     .subscribe(
       (data:Categorys)=>{ //success
+        console.log(data);
         this.categorysList=data['categorys'];
         console.log(this.categorysList);
 
@@ -103,17 +105,12 @@ export class ElementosComponent implements OnInit {
   }
 
   saveNewElement(){
-    delete this.element.id_element
     this.elementsService.saveElement(this.element)
     .subscribe(
-      data=>{ //success
-        console.log(data);
-      },
-      err => console.error('Observer got an error: ' + err),
-      () => { // end request
-        console.log('Observer got a complete notification')
-      }
-
+      data=>console.log(data),
+      error=>console.error(error)     
     )
+  
+    }
   }
-}
+
