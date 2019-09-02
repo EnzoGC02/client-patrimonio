@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ElementosComponent } from './components/elementos/elementos.component';
 import { ElementosListComponent } from './components/elementos/elementos-list/elementos-list.component';
-import { Observable } from 'rxjs/Rx';
 
 
 @NgModule({

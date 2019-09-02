@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {Router} from '@angular/router'
 
 //services
 import {BenefitsService} from '../../services/benefits/benefits.service'
@@ -33,7 +34,8 @@ export class ElementosComponent implements OnInit {
   constructor(
     private benefitsService:BenefitsService,
     private categorysService:CategorysService,
-    private elementsService:ElementsService
+    private elementsService:ElementsService,
+    private router:Router
   ) {
       this.elementForm=this.createFormGroupElements();
       console.log(this.element);
@@ -76,7 +78,7 @@ export class ElementosComponent implements OnInit {
   
 
    /*****METODOS*****/
-  setBenefitsList(){
+  private setBenefitsList(){
     this.benefitsService.getBenefits()
       .subscribe(
         (data:Benefits)=>{ //success
@@ -85,6 +87,7 @@ export class ElementosComponent implements OnInit {
       )
     }
 
+  //se llama en la vista
   setCategorysList(){
     //console.log(this.id_benef)
     this.categorysService.getCategoryForBenefyt(this.id_benef)
@@ -108,7 +111,11 @@ export class ElementosComponent implements OnInit {
     this.elementsService.saveElement(this.element)
     .subscribe(
       data=>console.log(data),
-      error=>console.error(error)     
+      error=>console.error(error),
+      ()=>{
+        
+        this.router.navigate(['elementos/list'])
+      }
     )
   
     }

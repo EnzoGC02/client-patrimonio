@@ -9,26 +9,17 @@
 <div class="row col-xl-10 offset-xl-2 pt-4">
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
-                aria-controls="nav-home" aria-selected="true">Todos</a>
-            <a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
-                aria-controls="nav-home" aria-selected="true">Home</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-                aria-controls="nav-profile" aria-selected="false">Profile</a>
-            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
-                aria-controls="nav-contact" aria-selected="false">Contact</a>
+            <div *ngFor="let benefit of BenefitsList;let prim=first">
+                    <a  (click)="updateElementsList(benefit.id_type_benefit_of_use)" [ngClass]="prim==true?active:in-active"class="nav-item nav-link" id="nav-home-tab" name="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                    aria-controls="nav-home">{{benefit.name_benefit}}</a>
+            </div>
         </div>
     </nav>
-    <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
-        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
-    </div>
 </div>
 <div class="pt-4">
     <div class="row col-xl-10 offset-xl-2 col-lg-10 offset-lg-2 col-md-10 offset-md-2 col-sm-10">
         <table class="table table-bordered table-hover m-2 p-2">
-            <thead>
+            <thead class="text-capitalize">
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">nombre</th>
