@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ElementosComponent } from './components/elementos/elementos.component';
 import { ElementosListComponent } from './components/elementos/elementos-list/elementos-list.component';
+import { PaginationComponent } from './components/elementos/elementos-list/pagination/pagination.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { ElementosListComponent } from './components/elementos/elementos-list/el
     NavbarComponent,
     ElementosComponent,
     ElementosListComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,

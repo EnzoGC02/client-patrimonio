@@ -5,14 +5,13 @@
     </div>
 </div>
 
-
-<div class="row col-xl-10 offset-xl-2 pt-4">
+<div class="row col-xl-10 offset-xl-2 col-lg-10 offset-lg-2 col-md-10 offset-md-2 pt-4">
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <div *ngFor="let benefit of BenefitsList;let prim=first">
-                    <a  (click)="updateElementsList(benefit.id_type_benefit_of_use)" [ngClass]="prim==true?active:in-active"class="nav-item nav-link" id="nav-home-tab" name="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
-                    aria-controls="nav-home">{{benefit.name_benefit}}</a>
-            </div>
+                <a (click)="setElementsList()"class="nav-link text-primary active" name="nav-home-tab" id="ShowAll" >Mostrar todos</a>
+                <a  *ngFor="let benefit of BenefitsList;let prim=first" (click)="updateElementsList(benefit.id_type_benefit_of_use)"
+                    class="nav-link text-primary" id="nav-home-tab"data-toggle="tab"
+                   >{{benefit.name_benefit}}</a>
         </div>
     </nav>
 </div>
@@ -31,27 +30,32 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let element of ElementsList; index as i">
-                    <td>{{i+1}}</td>
-                    <td>{{element.name_element}}</td>
-                    <td>{{element.description}}</td>
-                    <td>{{element.quantity}}</td>
-                    <td>{{element.name_benefit}}</td>
-                    <td>{{element.name_category}}</td>
-                    <td>
-                        <div class="btn-group">
 
-                            <button class="btn btn-primary" (click)="editElement(element.id_element)">Editar</button>
-                            <button class="btn btn-danger" (click)="deletElement(element.id_element)">Eliminar</button>
-                        </div>
-                    </td>
+                <tr *ngFor="let element of ElementsList; index as i" >
+                    
+                            <td>{{i+1}}</td>
+                            <td>{{element.name_element}}</td>
+                            <td>{{element.description}}</td>
+                            <td>{{element.quantity}}</td>
+                            <td>{{element.name_benefit}}</td>
+                            <td>{{element.name_category}}</td>
+                            <td>
+                                <div class="btn-group">
+        
+                                    <button class="btn btn-primary" (click)="editElement(element.id_element)">Editar</button>
+                                    <button class="btn btn-danger" (click)="deletElement(element.id_element)">Eliminar</button>
+                                </div>
+                            </td>
+                    
+
                 </tr>
 
             </tbody>
         </table>
+
+        <app-pagination (paginaEmitter)="goToPage($event)" [pages]="pages"[numberPage]="numberPage" [totalPages]="totalPages"></app-pagination>
         <div class="p-3 w-100">
             <a class="btn btn-outline-success btn-block" href="/elementos/add">Agregar nuevo elemento</a>
-
         </div>
     </div>
 </div>
