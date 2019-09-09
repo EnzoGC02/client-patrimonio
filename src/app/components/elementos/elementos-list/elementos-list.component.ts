@@ -14,7 +14,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   styleUrls: ['./elementos-list.component.css']
 })
 export class ElementosListComponent implements OnInit {
-  
+
   BenefitsList: Benefits[] = [];
   ElementsList: Elements[] = [];
   //Arreglo de elementos para usar en la paginacion
@@ -44,13 +44,16 @@ export class ElementosListComponent implements OnInit {
     this.elementsService.getElements(0)
       .subscribe(
         (data: Elements) => { //success
-          this.ElementsList=[]
+          this.ElementsList = []
           this.ElementsList = data['elements'];
+          console.log(this.ElementsList);
+
         },
         error => console.error(error), //error
         () => {
           console.log('end'); //end request
           this.setTotalPages()
+          this.initilizeNumberPage()
           this.setElementsPaginated()
           this.showLinkAsActive()
         }
@@ -117,6 +120,8 @@ export class ElementosListComponent implements OnInit {
         error => console.log(error),
         () => {
           this.setTotalPages()
+          this.initilizeNumberPage()
+          this.setElementsPaginated()
         }
 
       )
@@ -124,20 +129,27 @@ export class ElementosListComponent implements OnInit {
 
   goToPage(numP: number) {
     this.numberPage = numP
+    console.log(numP);
+
+    this.setElementsPaginated()
   }
   private setElementsPaginated() {
-    if (this.ElementsPaginated.length) {
-      this.ElementsPaginated = [];
-    }
+    var to: number, from: number
+    this.ElementsPaginated = [];
+
     if (this.numberPage < this.totalPages) {
-      var to = this.numberPage * 10       //hasta 
-      var from = (to - 10)       //desde
-      var i = 0
-      for(from; from < to; to++) {
-        this.ElementsPaginated[i] = this.ElementsList[from]
-        i++;
-      }
+      to = this.numberPage * 10       //hasta 
+      from = (to - 10)       //desde
     }
+    else if (this.numberPage == this.totalPages) {
+      from = (this.numberPage * 10) - 10
+      to = this.ElementsList.length
+    }
+    this.ElementsPaginated = this.ElementsList.slice(from, to)
+    console.log(this.ElementsPaginated);
+  }
+  private initilizeNumberPage(){
+    this.numberPage=1
   }
 
 }
