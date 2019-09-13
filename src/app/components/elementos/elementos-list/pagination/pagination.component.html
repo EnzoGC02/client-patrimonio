@@ -4,7 +4,7 @@
     <li class="page-item">
       <button (click)="previusPage()" [disabled]="numberPage==1" type='button' class='page-link'>Anterior</button>
     </li>
-    <li   *ngFor="let page of pages;index as i; first as IsFirst" class="page-item" [ngClass]="{active:IsFirst}" aria-current="page">
+    <li *ngFor="let page of pages;index as i; first as IsFirst" class="page-item " [ngClass]="{active:IsFirst}" aria-current="page">
       <button  (click)="happenPage(i+1)" class="btn page-link">{{i+1}}</button>
     </li>
     <li class="page-item">

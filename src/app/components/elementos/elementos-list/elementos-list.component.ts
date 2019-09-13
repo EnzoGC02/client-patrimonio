@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Elements } from '../../../models/elements'
+import { FormsModule } from '@angular/forms'; 
 
 //services
 import { ElementsService } from '../../../services/elements/elements.service'
@@ -20,6 +21,11 @@ export class ElementosListComponent implements OnInit {
   //Arreglo de elementos para usar en la paginacion
   ElementsPaginated: Elements[] = []
 
+
+  //nav tags
+  active: boolean
+  indexActive:number
+
   //pagination
   pages: number[] = [];
   numberPage: number = 1
@@ -34,19 +40,19 @@ export class ElementosListComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.setElementsList()
+    this.setElementsList(true)
     this.setBenefitsList()
+    this.active = true
   }
 
 
 
-  public setElementsList(): void {
+  public setElementsList(init = false): void {
     this.elementsService.getElements(0)
       .subscribe(
         (data: Elements) => { //success
           this.ElementsList = []
           this.ElementsList = data['elements'];
-          console.log(this.ElementsList);
 
         },
         error => console.error(error), //error
@@ -55,11 +61,11 @@ export class ElementosListComponent implements OnInit {
           this.setTotalPages()
           this.initilizeNumberPage()
           this.setElementsPaginated()
-          this.showLinkAsActive()
+
+          if (init == false)
+            this.showLinkAsActive(0)
         }
-
       )
-
   }
   private setTotalPages() {
     this.numElements = this.ElementsList.length
@@ -76,14 +82,12 @@ export class ElementosListComponent implements OnInit {
     this.setPages()
 
 
-    console.log(this.totalPages);
   }
 
   private setPages() {
     this.pages = [];
     for (var i = 0; i < this.totalPages; i++)
       this.pages[i] = i + 1;
-    console.log(this.pages)
   }
 
   editElement(id) {
@@ -105,9 +109,17 @@ export class ElementosListComponent implements OnInit {
       )
   }
 
-  private showLinkAsActive() {
-    document.getElementById('ShowAll').classList.add('active')
-    //document.getElementById('nav-home-tab').classList.remove('active');
+  private showLinkAsActive(indexActive=0) {
+    var header = document.getElementById("nav-tab");
+    var item = header.getElementsByClassName('nav-link')
+    var current = header.getElementsByClassName("nav-link active");
+    current[0].className = current[0].className.replace(" active", "")
+    //agrega la clase active al elemento seleccionado
+    
+    console.log(item);
+    console.log(current);
+
+    //item[page].className+=" active"
   }
 
   updateElementsList(id) {
@@ -118,21 +130,21 @@ export class ElementosListComponent implements OnInit {
           this.ElementsList = data['elements']
         },
         error => console.log(error),
-        () => {
-          this.setTotalPages()
-          this.initilizeNumberPage()
-          this.setElementsPaginated()
-        }
 
+        () => { //end request
+          this.setTotalPages()
+          this.setElementsPaginated()
+          this.initilizeNumberPage()
+          this.showLinkAsActive()
+        }
       )
   }
 
   goToPage(numP: number) {
     this.numberPage = numP
-    console.log(numP);
-
     this.setElementsPaginated()
   }
+
   private setElementsPaginated() {
     var to: number, from: number
     this.ElementsPaginated = [];
@@ -146,10 +158,10 @@ export class ElementosListComponent implements OnInit {
       to = this.ElementsList.length
     }
     this.ElementsPaginated = this.ElementsList.slice(from, to)
-    console.log(this.ElementsPaginated);
+
   }
-  private initilizeNumberPage(){
-    this.numberPage=1
+  private initilizeNumberPage() {
+    this.numberPage = 1
   }
 
 }

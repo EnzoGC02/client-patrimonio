@@ -1,12 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.css']
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnInit, OnChanges{
 
   @Input() private totalPages: number
   @Input() private numberPage: number;
@@ -17,10 +16,18 @@ export class PaginationComponent implements OnInit {
   disabledPrevious: string = 'disabled';
 
 
-  constructor() { }
+  constructor(
+  ) { }
 
   ngOnInit() {
-
+ 
+  }
+  ngOnChanges(changes:SimpleChanges){
+    //aqui controla los cambios en numberPage para activar el boton activo en la paginacion
+    if(changes.numberPage && changes.numberPage.currentValue){
+      this.showButtonAsActive(changes.numberPage.currentValue)
+      
+    }
   }
 
   previusPage() {
@@ -29,25 +36,33 @@ export class PaginationComponent implements OnInit {
   }
 
   nextPage() {
+    console.log(this.numberPage);
+    
     this.numberPage++
     this.happenPage()
   }
 
   private showButtonAsActive(page) {
     var header = document.getElementById("buttonPage");
-    var btns = header.getElementsByClassName("btn");
-    console.log(btns);
-    for (var i = 0; i < btns.length; i++) {
-    }
+    var item = header.getElementsByClassName('page-item')    
+    var current = header.getElementsByClassName("page-item active");
+    //quita la clase active del elemento actual
+    current[0].className = current[0].className.replace(" active", "")
+    //agrega la clase active al elemento seleccionado
+    item[page].className+=" active"
+    
   }
   happenPage(page = 0) {
+    var _page: number
+    
+    //si page es igual a 0 entonces se clickeo el boton anterior o siguiente
     if (page == 0)
-      this.paginaEmitter.emit(this.numberPage)
-    else{
-      this.paginaEmitter.emit(page)
-      this.showButtonAsActive(page)
-    } 
-    console.log(page)
+
+      _page = this.numberPage;
+    else
+      _page = page
+
+    this.paginaEmitter.emit(_page)
   }
 
 }
