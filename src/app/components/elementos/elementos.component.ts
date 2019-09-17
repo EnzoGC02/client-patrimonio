@@ -39,7 +39,6 @@ export class ElementosComponent implements OnInit {
     private router: Router
   ) {
     this.elementForm = this.createFormGroupElements();
-    console.log(this.element);
   }
 
   ngOnInit() {

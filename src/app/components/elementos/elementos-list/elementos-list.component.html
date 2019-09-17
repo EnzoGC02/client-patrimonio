@@ -43,8 +43,8 @@
                             <td>
                                 <div class="btn-group">
         
-                                    <button class="btn btn-primary" (click)="editElement(element.id_element)">Editar</button>
-                                    <button class="btn btn-danger" (click)="deletElement(element.id_element)">Eliminar</button>
+                                    <a class="btn btn-primary" [routerLink]="['/salidas/add', element.id_element]"><i class="fas fa-sign-out-alt"></i>Salida</a>
+                                    <a class="btn btn-danger" (click)="deletElement(element.id_element)">Entrada</a>
                                 </div>
                             </td>
                     
@@ -58,7 +58,7 @@
 
         
         <div class="p-3 w-100">
-            <a class="btn btn-outline-success btn-block" href="/elementos/add">Agregar nuevo elemento</a>
+            <a class="btn btn-outline-success btn-block" routerLink="/elementos/add">Agregar nuevo elemento</a>
         </div>
     </div>
 </div>

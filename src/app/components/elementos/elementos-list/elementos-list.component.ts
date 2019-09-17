@@ -48,11 +48,13 @@ export class ElementosListComponent implements OnInit {
 
 
   public setElementsList(init = false): void {
-    this.elementsService.getElements(0)
+    this.elementsService.getElements()
       .subscribe(
         (data: Elements) => { //success
           this.ElementsList = []
           this.ElementsList = data['elements'];
+          console.log(this.ElementsList);
+          
 
         },
         error => console.error(error), //error
@@ -89,15 +91,6 @@ export class ElementosListComponent implements OnInit {
     for (var i = 0; i < this.totalPages; i++)
       this.pages[i] = i + 1;
   }
-
-  editElement(id) {
-    console.log(id);
-
-  }
-  deletElement(id) {
-    console.log(id);
-
-  }
   setBenefitsList() {
     this.benefitsService.getBenefits()
       .subscribe(
@@ -124,7 +117,7 @@ export class ElementosListComponent implements OnInit {
 
   updateElementsList(id) {
     //this.showLinkAsActive()
-    this.elementsService.getElements(id)
+    this.elementsService.getElementsForTypeBenefit(id)
       .subscribe(
         (data: Elements) => {
           this.ElementsList = data['elements']

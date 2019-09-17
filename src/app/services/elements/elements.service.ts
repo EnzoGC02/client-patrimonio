@@ -10,20 +10,26 @@ import { Observable, Subject, Subscriber } from 'rxjs';
 })
 export class ElementsService {
 
-  message: string = '';
-  private elements$: Subject<Elements[]> = new Subject<Elements[]>();
   private elements: Elements[] = [];
   constructor(private http: HttpClient) { }
+
+
+  getElements(){
+    return this.http.get(`${AppSettings.API_URL}/Elements/index.json`)
+  }
+  getElement(id){
+    return this.http.get(`${AppSettings.API_URL}/Elements/view/${id}.json`)
+  }
+
+
+  getElementsForTypeBenefit(id) {
+    if (id)
+      return this.http.get(`${AppSettings.API_URL}/Elements/getElementsForTypeBenefit/${id}.json`)
+  }
 
   saveElement(element) {
     return this.http.post(`${AppSettings.API_URL}/Elements/add.json`, element)
   }
 
-  getElements(id) {
-    if (id == 0)
-      return this.http.get(`${AppSettings.API_URL}/Elements/index.json`)
-    else
-      return this.http.get(`${AppSettings.API_URL}/Elements/view/${id}.json`)
-  }
 
 }
