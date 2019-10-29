@@ -52,9 +52,7 @@ export class ElementosListComponent implements OnInit {
       .subscribe(
         (data: Elements) => { //success
           this.ElementsList = []
-          this.ElementsList = data['elements'];
-          console.log(this.ElementsList);
-          
+          this.ElementsList = data['elements'];          
 
         },
         error => console.error(error), //error
@@ -109,14 +107,11 @@ export class ElementosListComponent implements OnInit {
     current[0].className = current[0].className.replace(" active", "")
     //agrega la clase active al elemento seleccionado
     
-    console.log(item);
-    console.log(current);
-
     //item[page].className+=" active"
   }
 
   updateElementsList(id) {
-    //this.showLinkAsActive()
+    this.showLinkAsActive()
     this.elementsService.getElementsForTypeBenefit(id)
       .subscribe(
         (data: Elements) => {

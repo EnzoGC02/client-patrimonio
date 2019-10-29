@@ -31,5 +31,9 @@ export class ElementsService {
     return this.http.post(`${AppSettings.API_URL}/Elements/add.json`, element)
   }
 
+  getAvailibityOfElement(id_elem:number){
+    return this.http.get(`${AppSettings.API_URL}/Elements/getAvailibityOfElement/${id_elem}.json`)
+  }
+
 
 }

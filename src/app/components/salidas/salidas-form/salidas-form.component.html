@@ -2,24 +2,109 @@
     <div class="card">
         <div class="card-body">
             <div class="form-group" [formGroup]="salidaForm">
-                    <div class="card-header bg-ligth mb-2">
-                            <h1 class="text-center text-dark text-capitalize">Registrar salida</h1>
+                <div class="card-header bg-ligth mb-2">
+                    <h1 class="text-center text-dark text-capitalize">Registrar salida</h1>
+                </div>
+                <!-- INPUT NAME ELEMENT -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputName">Nombre</label>
                     </div>
-                        <!-- INPUT NAME ELEMENT -->
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="inputName">Nombre</label>
-                            </div>
-                            <input class="form-control" name="inputName"  formControlName="nameElement" disabled>
-                        </div>
+                    <input id="michota" class="form-control" name="inputName" formControlName="nameElement" disabled>
+                </div>
 
-                        <!-- INPUT QUANTITY ELEMENT -->
-                        <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                        <label class="input-group-text" for="inputQuantity">Cantidad disponible</label>
-                                </div>
-                                <input class="form-control" name="inputQuantity"  formControlName="quantityElement" disabled>
+                <!-- INPUT QUANTITY ELEMENT -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputQuantity">Cantidad disponible</label>
+                    </div>
+                    <input class="form-control" type="number" name="inputQuantity" formControlName="quantityElement"
+                        disabled>
+                </div>
+                
+                <!--INPUNT DE CANTIDAD A SALIR-->
+                <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputReasonOutput">Cantidad a salir</label>
                         </div>
+                        <input id="InputQunatityOfOut"class="form-control" formControlName="qunatityOfOut" type="number" min="1" pattern="^[0-9]+">
+                    </div>
+                    <div *ngIf="salidaForm.controls['qunatityOfOut'].hasError('required') && salidaForm.controls['qunatityOfOut'].touched"
+                        class="alert alert-danger">
+                        <p class="lead">Por favor, ingrese la cantidad de elementos a salir</p>
+                    </div>
+                    <div *ngIf="salidaForm.controls['qunatityOfOut'].hasError('max')" class="alert alert-danger">
+                        La cantidad ingresada aqui debe ser menor o igual a {{salidaForm.get('quantityElement').value}}
+                    </div>
+
+                <!--SELECT DE MOTIVO DE SALIDA -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputReasonOutput">Motivo de salida</label>
+                    </div>
+                    <select class="custom-select" formControlName="reasonOutput" id="inputReasonOutput">
+                        <option *ngFor="let reason of availibitysList" [value]="reason.availability_id">
+                            {{reason.name_availability}}
+                        </option>
+                    </select>
+                </div>
+                <!--SELECT DE OFICINAS-->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputOffice">Oficina remitente</label>
+                    </div>
+                    <select id="inputOffice" class="custom-select" formControlName="idOffice">
+                        <option *ngFor="let office of officesList" [value]="office.id_office">
+                            {{office.name_office}}
+                        </option>
+                    </select>
+                </div>
+                <div *ngIf="salidaForm.controls['idOffice'].hasError('required') && salidaForm.controls['idOffice'].touched"
+                    class="alert alert-danger">
+                    <p class="lead">Por favor, ingrese la oficina remitente</p>
+                </div>
+                <!--INPUT FECHA Y HORA DE SALIDA-->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="dateOfOutput">Fecha de salida</label>
+                    </div>
+                    <input formControlName="dateOfOutput" id="inputDateOfOutput"  class="form-control" type="date"
+                        [value]="getMinDate()"  disabled>
+                    <input formControlName="houreOfOuput"id="inputHoureOfOutput"  class="form-control" type="time"
+                        [value]="getMinHoure()" disabled>
+                    <div class="input-group-append">
+                        <button class="form-control btn btn-secondary" (click)="enabledInputDate()">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                </div>
+                <!--INPUT NUMERO DE EXPEDIENTE-->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputProceedings">Numero de expediente</label>
+                    </div>
+                    <input id="inputProceedings" type="number" class="form-control" formControlName="proceedings">
+                </div>
+                <div *ngIf="salidaForm.controls['proceedings'].hasError('required') && salidaForm.controls['proceedings'].touched"
+                    class="alert alert-danger">
+                    <p class="lead">Por favor, ingrese el numero de expediente</p>
+                </div>
+                <div *ngIf="salidaForm.controls['proceedings'].hasError('min') && salidaForm.controls['proceedings'].touched"
+                    class="alert alert-danger">
+                    <p class="lead">Por favor, ingrese numero de expediente mayor a 1</p>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Descripcion</span>
+                    </div>
+                    <textarea formControlName="description"class="form-control" aria-label="With textarea" placeholder="Agregue aqui su descripcion"
+                      ></textarea>
+                  </div>
+        
+                <button class="btn btn-outline-success btn-block text-uppercase" [disabled]="!salidaForm.valid"
+                    (click)="saveNewOutput()">
+                    Guardar
+                </button>
             </div>
         </div>
 

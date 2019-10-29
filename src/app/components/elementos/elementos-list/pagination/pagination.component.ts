@@ -7,9 +7,9 @@ import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChange
 })
 export class PaginationComponent implements OnInit, OnChanges{
 
-  @Input() private totalPages: number
-  @Input() private numberPage: number;
-  @Input() private pages: number[] = [];
+  @Input() public totalPages: number
+  @Input() public numberPage: number;
+  @Input() public pages: number[] = [];
   @Input() public numElements: number;
   @Output() paginaEmitter: EventEmitter<number> = new EventEmitter();
 
