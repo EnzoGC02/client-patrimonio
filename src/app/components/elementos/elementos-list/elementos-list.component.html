@@ -8,8 +8,8 @@
 <div class="row col-xl-10 offset-xl-2 col-lg-10 offset-lg-2 col-md-10 offset-md-2 pt-4">
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a (click)="setElementsList(false)" class="nav-item nav-link active" name="nav-home-tab" id="nav-home-tab" aria-selected="true">Mostrar todos</a>
-                <a  *ngFor="let benefit of BenefitsList;index as i"(click)="updateElementsList(benefit.id_type_benefit_of_use)"
+                <a id="all" (click)="setElementsList()" class="nav-item nav-link active" name="nav-home-tab" aria-selected="true">Mostrar todos</a>
+                <a  *ngFor="let benefit of BenefitsList" [id]="benefit.id_type_benefit_of_use" (click)="updateElementsList(benefit.id_type_benefit_of_use)"
                     class="nav-item nav-link"
                    >{{benefit.name_benefit}}</a>
                 

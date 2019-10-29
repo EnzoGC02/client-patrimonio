@@ -93,6 +93,7 @@ export class SalidasFormComponent implements OnInit {
     if (this.salidaForm.valid) {
       let date = this.salidaForm.get('dateOfOutput').value + " " + this.salidaForm.get('houreOfOuput').value + ":00" //formatea la fecha para que sea aceptada por la API
 
+      //creo el objeto de Output 
       this.output = new Outputs(
         this.salidaForm.get('reasonOutput').value,
         this.element.id_element,
@@ -102,10 +103,13 @@ export class SalidasFormComponent implements OnInit {
         this.salidaForm.get('description').value
       );
 
-      console.log(this.output);
       this.outputsService.saveOutput(this.output)
         .subscribe(
-          (data) => console.log(data)
+          (data) => console.log(data),
+          (error)=>console.log(error),
+          ()=>{console.log("end request");
+          }
+          
         )
     }
   }

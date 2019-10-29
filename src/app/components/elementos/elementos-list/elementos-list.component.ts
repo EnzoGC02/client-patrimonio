@@ -40,14 +40,15 @@ export class ElementosListComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.setElementsList(true)
+    this.setElementsList()
     this.setBenefitsList()
     this.active = true
   }
 
 
 
-  public setElementsList(init = false): void {
+    //RECUPERACION Y ACTUALIZACION DE DATOS 
+  public setElementsList(): void {
     this.elementsService.getElements()
       .subscribe(
         (data: Elements) => { //success
@@ -61,12 +62,40 @@ export class ElementosListComponent implements OnInit {
           this.setTotalPages()
           this.initilizeNumberPage()
           this.setElementsPaginated()
-
-          if (init == false)
-            this.showLinkAsActive(0)
+          this.showLinkAsActive('all')
         }
       )
   }
+ public setBenefitsList() {
+    this.benefitsService.getBenefits()
+      .subscribe(
+        (data: Benefits) => {
+          this.BenefitsList = data['benefits']
+
+        },
+        error => console.error(error),
+        ()=>{console.log("end request lista completa");
+        }
+      )
+  }
+  public updateElementsList(id) {
+    this.showLinkAsActive(id)
+    this.elementsService.getElementsForTypeBenefit(id)
+      .subscribe(
+        (data: Elements) => {
+          this.ElementsList = data['elements']
+        },
+        error => console.log(error),
+
+        () => { //end request
+          this.setTotalPages()
+          this.setElementsPaginated()
+          this.initilizeNumberPage()
+        }
+      )
+  }
+
+  //METODOS QUE SE UTLIZAN PARA LA LOGICA DE LA VISTA
   private setTotalPages() {
     this.numElements = this.ElementsList.length
     let result = this.numElements / this.numResults
@@ -89,44 +118,19 @@ export class ElementosListComponent implements OnInit {
     for (var i = 0; i < this.totalPages; i++)
       this.pages[i] = i + 1;
   }
-  setBenefitsList() {
-    this.benefitsService.getBenefits()
-      .subscribe(
-        (data: Benefits) => {
-          this.BenefitsList = data['benefits']
+  
 
-        },
-        error => console.error(error)
-      )
+  private showLinkAsActive(id_action) {
+    //recupera el elemento con la clase active actual
+    var header=document.getElementsByClassName('nav-link active');
+    //remueve la clase active del elemento que ya no debe mostrarse como active
+    header[0].classList.remove('active');
+    //recupera el elemento clickeado recientemente
+    var current=document.getElementById(id_action)
+    //agrega la clase de boostrap active
+    current.classList.add('active');
   }
 
-  private showLinkAsActive(indexActive=0) {
-    var header = document.getElementById("nav-tab");
-    var item = header.getElementsByClassName('nav-link')
-    var current = header.getElementsByClassName("nav-link active");
-    current[0].className = current[0].className.replace(" active", "")
-    //agrega la clase active al elemento seleccionado
-    
-    //item[page].className+=" active"
-  }
-
-  updateElementsList(id) {
-    this.showLinkAsActive()
-    this.elementsService.getElementsForTypeBenefit(id)
-      .subscribe(
-        (data: Elements) => {
-          this.ElementsList = data['elements']
-        },
-        error => console.log(error),
-
-        () => { //end request
-          this.setTotalPages()
-          this.setElementsPaginated()
-          this.initilizeNumberPage()
-          this.showLinkAsActive()
-        }
-      )
-  }
 
   goToPage(numP: number) {
     this.numberPage = numP
