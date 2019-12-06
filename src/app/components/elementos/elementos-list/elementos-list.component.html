@@ -34,7 +34,7 @@
 
                 <tr *ngFor="let element of ElementsPaginated; index as i" >
                     
-                            <td>{{i+1}}</td>
+                            <td>{{getElementIndex(i+1)}}</td>
                             <td>{{element.name_element}}</td>
                             <td>{{element.description}}</td>
                             <td>{{element.quantity}}</td>
@@ -54,7 +54,13 @@
             </tbody>
         </table>
 
-        <app-pagination (paginaEmitter)="goToPage($event)" [pages]="pages" [numberPage]="numberPage" [totalPages]="totalPages"></app-pagination>
+        <div class="row d-flex justify-content-between">
+            <div class="col-6">
+                    <app-pagination (paginaEmitter)="goToPage($event)" [pages]="pages" [numberPage]="numberPage" [totalPages]="totalPages"></app-pagination>    
+            </div>
+        </div>
+        
+        
 
         
         <div class="p-3 w-100">

@@ -15,6 +15,7 @@ export class ElementsService {
 
 
   getElements(){
+    console.log(AppSettings.API_URL)
     return this.http.get(`${AppSettings.API_URL}/Elements/index.json`)
   }
   getElement(id){

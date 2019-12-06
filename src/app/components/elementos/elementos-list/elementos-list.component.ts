@@ -155,5 +155,12 @@ export class ElementosListComponent implements OnInit {
   private initilizeNumberPage() {
     this.numberPage = 1
   }
+  public getElementIndex(i){
+    if(this.numberPage==1){
+      return i;
+    }
+    else (this.numberPage>1)
+      return i+(this.numberPage-1)*10;
+  }
 
 }

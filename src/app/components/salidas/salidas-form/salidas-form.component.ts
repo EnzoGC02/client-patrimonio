@@ -80,7 +80,7 @@ export class SalidasFormComponent implements OnInit {
       nameElement: new FormControl(this.element.name_element, Validators.required),
       quantityElement: new FormControl(this.element.quantity, Validators.required),
       reasonOutput: new FormControl('', Validators.required),
-      qunatityOfOut: new FormControl('', [Validators.required, Validators.max(this.element.quantity)]),
+      qunatityOfOut: new FormControl('', [Validators.required, Validators.max(this.element.quantity),Validators.min(1)]),
       idOffice: new FormControl('', Validators.required),
       dateOfOutput: new FormControl(this.getMinDate(), Validators.required),
       houreOfOuput: new FormControl(this.getMinHoure(), Validators.required),

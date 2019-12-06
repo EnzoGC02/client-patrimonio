@@ -27,7 +27,7 @@
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="inputReasonOutput">Cantidad a salir</label>
                         </div>
-                        <input id="InputQunatityOfOut"class="form-control" formControlName="qunatityOfOut" type="number" min="1" pattern="^[0-9]+">
+                        <input id="InputQunatityOfOut"class="form-control" formControlName="qunatityOfOut" type="number" pattern="^[0-9]+">
                     </div>
                     <div *ngIf="salidaForm.controls['qunatityOfOut'].hasError('required') && salidaForm.controls['qunatityOfOut'].touched"
                         class="alert alert-danger">
@@ -35,6 +35,9 @@
                     </div>
                     <div *ngIf="salidaForm.controls['qunatityOfOut'].hasError('max')" class="alert alert-danger">
                         La cantidad ingresada aqui debe ser menor o igual a {{salidaForm.get('quantityElement').value}}
+                    </div>
+                    <div *ngIf="salidaForm.controls['qunatityOfOut'].hasError('min')" class="alert alert-danger">
+                        La cantidad ingresada aqui debe ser menor o igual a 1
                     </div>
 
                 <!--SELECT DE MOTIVO DE SALIDA -->
