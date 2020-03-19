@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router'
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+// import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
 
 import { Elements } from '../../../models/elements'
 import { Office } from '../../../models/offices'
@@ -31,7 +32,8 @@ export class SalidasFormComponent implements OnInit {
     private router: Router,
     private elementService: ElementsService,
     private officeService: OfficesService,
-    private outputsService: OutputsService
+    private outputsService: OutputsService,
+    // private modalService: NgbModal
   ) {
   }
 
@@ -61,6 +63,7 @@ export class SalidasFormComponent implements OnInit {
       .subscribe(
         data => {
           this.availibitysList = data['availabitys']
+          console.log(this.availibitysList)
         },
         error => console.error(error)
 
@@ -82,8 +85,8 @@ export class SalidasFormComponent implements OnInit {
       reasonOutput: new FormControl('', Validators.required),
       qunatityOfOut: new FormControl('', [Validators.required, Validators.max(this.element.quantity),Validators.min(1)]),
       idOffice: new FormControl('', Validators.required),
-      dateOfOutput: new FormControl(this.getMinDate(), Validators.required),
-      houreOfOuput: new FormControl(this.getMinHoure(), Validators.required),
+      // dateOfOutput: new FormControl(this.getMinDate(), Validators.required),
+      // houreOfOuput: new FormControl(this.getMinHoure(), Validators.required),
       proceedings: new FormControl('', [Validators.required, Validators.min(1)]),
       description: new FormControl('', [Validators.required])
     })
@@ -91,28 +94,27 @@ export class SalidasFormComponent implements OnInit {
 
   saveNewOutput() {
     if (this.salidaForm.valid) {
-      let date = this.salidaForm.get('dateOfOutput').value + " " + this.salidaForm.get('houreOfOuput').value + ":00" //formatea la fecha para que sea aceptada por la API
+      // let date = this.salidaForm.get('dateOfOutput').value + " " + this.salidaForm.get('houreOfOuput').value + ":00" //formatea la fecha para que sea aceptada por la API
+      // this.element.updateQuantity(this.salidaForm.get('qunatityOfOut'))
+      console.log(this.element)
 
       //creo el objeto de Output 
-      this.output = new Outputs(
-        this.salidaForm.get('reasonOutput').value,
-        this.element.id_element,
-        this.salidaForm.get('idOffice').value,
-        date,
-        this.salidaForm.get('proceedings').value,
-        this.salidaForm.get('description').value
-      );
+      this.output = new Outputs();
+      console.log(this.output)
 
-      this.outputsService.saveOutput(this.output)
-        .subscribe(
-          (data) => console.log(data),
-          (error)=>console.log(error),
-          ()=>{console.log("end request");
-          }
+      // this.outputsService.saveOutput(this.output)
+      //   .subscribe(
+      //     (data) => console.log(data),
+      //     (error)=>console.log(error),
+      //     ()=>{console.log("end request");
+      //     }
           
-        )
+      //   )
     }
   }
+  // open(){
+  //   this.modalService.open()
+  // }
 
 
 
@@ -121,35 +123,35 @@ export class SalidasFormComponent implements OnInit {
   //metodos para establecer valores minimos en los input de tipo date y time
 
   //calcula la fecha actual
-  getMinDate(): string {
-    let fecha = new Date()
-    let mes = (fecha.getUTCMonth() + 1 < 10) ? "0" + (fecha.getUTCMonth() + 1) : fecha.getUTCMonth() + 1
-    let dia = fecha.getUTCDate() < 10 ? "0" + fecha.getUTCDate() : fecha.getUTCDate()
-    let fechaActual = fecha.getFullYear() + "-" + mes + "-" + dia
-    return fechaActual
-  }
+  // getMinDate(): string {
+  //   let fecha = new Date()
+  //   let mes = (fecha.getUTCMonth() + 1 < 10) ? "0" + (fecha.getUTCMonth() + 1) : fecha.getUTCMonth() + 1
+  //   let dia = fecha.getUTCDate() < 10 ? "0" + fecha.getUTCDate() : fecha.getUTCDate()
+  //   let fechaActual = fecha.getFullYear() + "-" + mes + "-" + dia
+  //   return fechaActual
+  // }
 
-  //calcula hora actual
-  getMinHoure(): string {
-    let h = new Date()
-    let hora = h.getHours() < 10 ? "0" + h.getHours() : h.getHours()
-    let minutes = h.getUTCMinutes() < 10 ? "0" + h.getUTCMinutes() : h.getUTCMinutes()
-    let horaActual = hora + ":" + minutes
-    return horaActual
+  // //calcula hora actual
+  // getMinHoure(): string {
+  //   let h = new Date()
+  //   let hora = h.getHours() < 10 ? "0" + h.getHours() : h.getHours()
+  //   let minutes = h.getUTCMinutes() < 10 ? "0" + h.getUTCMinutes() : h.getUTCMinutes()
+  //   let horaActual = hora + ":" + minutes
+  //   return horaActual
 
-  }
-  enabledInputDate():void {
+  // }
+  // enabledInputDate():void {
 
-    let d = document.getElementById('inputDateOfOutput')
-    let h = document.getElementById('inputHoureOfOutput')
-    if (d.hasAttribute('disabled') && h.hasAttribute('disabled')) {
-      d.removeAttribute('disabled');
-      h.removeAttribute('disabled');
-    }
-    else {
-      d.setAttribute('disabled', 'true')
-      h.setAttribute('disabled', 'true')
-    }
-  }
+  //   let d = document.getElementById('inputDateOfOutput')
+  //   let h = document.getElementById('inputHoureOfOutput')
+  //   if (d.hasAttribute('disabled') && h.hasAttribute('disabled')) {
+  //     d.removeAttribute('disabled');
+  //     h.removeAttribute('disabled');
+  //   }
+  //   else {
+  //     d.setAttribute('disabled', 'true')
+  //     h.setAttribute('disabled', 'true')
+  //   }
+  // }
 
 }

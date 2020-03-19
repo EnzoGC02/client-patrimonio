@@ -8,4 +8,8 @@ export class Elements{
     constructor(id:number){
         this.id_element=id;
     }
+
+    public updateQuantity(subtract){
+        this.quantity-=subtract;
+    }
 }

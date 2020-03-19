@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Elements } from '../../../models/elements'
 import { FormsModule } from '@angular/forms'; 
+import {SalidasFormComponent} from '../../salidas/salidas-form/salidas-form.component'
 
 //services
 import { ElementsService } from '../../../services/elements/elements.service'
@@ -35,7 +36,7 @@ export class ElementosListComponent implements OnInit {
 
   constructor(
     private elementsService: ElementsService,
-    private benefitsService: BenefitsService
+    private benefitsService: BenefitsService,
   ) {
 
   }
@@ -53,7 +54,9 @@ export class ElementosListComponent implements OnInit {
       .subscribe(
         (data: Elements) => { //success
           this.ElementsList = []
-          this.ElementsList = data['elements'];          
+          this.ElementsList = data['elements'];
+          // console.log(this.ElementsList);
+             
 
         },
         error => console.error(error), //error
@@ -70,7 +73,9 @@ export class ElementosListComponent implements OnInit {
     this.benefitsService.getBenefits()
       .subscribe(
         (data: Benefits) => {
-          this.BenefitsList = data['benefits']
+          this.BenefitsList = data['benefits'];
+          console.log(this.BenefitsList);
+          
 
         },
         error => console.error(error),

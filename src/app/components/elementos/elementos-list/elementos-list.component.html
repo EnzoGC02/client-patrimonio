@@ -1,11 +1,6 @@
-<div class="jumbotron jumbotron-fluid col-xl-10 offset-xl-2">
-    <div class="container text-center">
-        <h1 class="display-4">Gestion de elementos</h1>
-        <p class="lead">Aqui podrá consultar, editar y eliminar elementos.</p>
-    </div>
-</div>
 
-<div class="row col-xl-10 offset-xl-2 col-lg-10 offset-lg-2 col-md-10 offset-md-2 pt-4">
+
+<div class="row">
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a id="all" (click)="setElementsList()" class="nav-item nav-link active" name="nav-home-tab" aria-selected="true">Mostrar todos</a>
@@ -17,7 +12,7 @@
     </nav>
 </div>
 <div class="pt-4">
-    <div class="row col-xl-10 offset-xl-2 col-lg-10 offset-lg-2 col-md-10 offset-md-2 col-sm-10">
+    <div class="row">
         <table class="table table-bordered table-hover m-2 p-2">
             <thead class="text-capitalize">
                 <tr>
@@ -27,7 +22,7 @@
                     <th scope="col">cantidad disponible</th>
                     <th scope="col">tipo de bien</th>
                     <th scope="col">categoria</th>
-                    <th scope="col">acciones</th>
+                    <!-- <th scope="col">acciones</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -38,15 +33,15 @@
                             <td>{{element.name_element}}</td>
                             <td>{{element.description}}</td>
                             <td>{{element.quantity}}</td>
-                            <td>{{element.name_benefit}}</td>
-                            <td>{{element.name_category}}</td>
-                            <td>
+                            <td>{{element.categorys_of_element.types_benefits_of_use.name_benefit}}</td>
+                            <td>{{element.categorys_of_element.name_category}}</td>
+                            <!-- <td>
                                 <div class="btn-group">
         
                                     <a class="btn btn-primary" [routerLink]="['/salidas/add', element.id_element]"><i class="fas fa-sign-out-alt"></i>Salida</a>
-                                    <a class="btn btn-danger">Entrada</a>
+                                    <a click="poronga()" class="btn btn-danger">Entrada</a>
                                 </div>
-                            </td>
+                            </td> -->
                     
 
                 </tr>
@@ -62,9 +57,17 @@
         
         
 
-        
         <div class="p-3 w-100">
             <a class="btn btn-outline-success btn-block" routerLink="/elementos/add">Agregar nuevo elemento</a>
         </div>
-    </div>
-</div>
+
+        <!-- <div class="container pt-4">
+          <div class="row">
+            <div class="col-4">
+              <div class="list-group">
+                <button class="list-group-item list-group-item-action" [ngClass]="{'active':IsFirst}"
+                  *ngFor="let element of ElementsPaginated; first as IsFirst">{{element.name_element}}</button>
+              </div>
+            </div>
+          </div>
+        </div> -->
